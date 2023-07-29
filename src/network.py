@@ -139,3 +139,17 @@ def sigmoid(z):
 def sigmoid_prime(z):
     """Derivative of the sigmoid function."""
     return sigmoid(z)*(1-sigmoid(z))
+
+
+# Main loop
+if __name__ == "__main__":
+    # Loading the MNIST data
+    import mnist_loader
+    training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
+
+    # Setting up a Network with 30 hidden neurons, 784 inputs (28x28: pixel map), 10 outputs (10 digits)
+    net = Network([784, 30, 10])
+
+    # Using stochastic gradient descent to learn from the MNIST training_data over 30 epochs,
+    # with a mini-batch size of 10, and a learning rate of n = 3.0
+    net.SGD(training_data=training_data, epochs=30, mini_batch_size=10, eta=3.0, test_data=test_data)
